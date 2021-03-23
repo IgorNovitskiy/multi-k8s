@@ -1,0 +1,23 @@
+apiVersion: cert-manager.io/v1alpha2
+kind: Certificate
+metadata:
+  name: igornovitsky-cf-tls
+spec:
+  secretName: igornovitsky-cf-tls
+  # References to issuer (issuer.yaml)
+  issuerRef:
+    name: letsencrypt-prod
+    kind: ClusterIssuer
+  commonName: igornovitsky.cf
+  #  List of domains which should be assotiated with this certificate
+  dnsNames:
+    - igornovitsky.cf
+    - www.igornovitsky.cf
+  acme:
+    config:
+      - http01:
+          ingressClass: nginx
+        # Domains, which should be accessed by cert manager to verify them
+        domains:
+          - igornovitsky.cf
+          - www.igornovitsky.cf
